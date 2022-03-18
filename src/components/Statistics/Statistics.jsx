@@ -1,18 +1,14 @@
-const Statistics = ({
-  good,
-  neutral,
-  bad,
-  totalFeedback,
-  positivePercentage,
-}) => {
+import s from './Statisitcs.module.css';
+
+const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
   return (
     <>
-      <p>Statistics</p>
-      <span>Good: {good}</span>
-      <span>Neutral: {neutral}</span>
-      <span>Bad: {bad}</span>
-      <span>Total: {totalFeedback}</span>
-      <span>Positive Feedback: {positivePercentage}%</span>
+      <h2 className={s.title}>Statistics</h2>
+      <p className={s.text}>Good: {good}</p>
+      <p className={s.text}>Neutral: {neutral}</p>
+      <p className={s.text}>Bad: {bad}</p>
+      <p className={s.text}>Total: {total}</p>
+      <p className={s.text}>Positive Feedback: {positivePercentage}%</p>
     </>
   );
 };

@@ -1,16 +1,19 @@
-const FeedbackOptions = ({ onLeaveFeedback }) => {
+import s from './Feedback.module.css';
+
+const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <>
-      <h2>Please leave feedback</h2>
-      <button name="good" onClick={onLeaveFeedback}>
-        Good
-      </button>
-      <button name="neutral" onClick={onLeaveFeedback}>
-        Neutral
-      </button>
-      <button name="bad" onClick={onLeaveFeedback}>
-        Bad
-      </button>
+      <h2 className={s.text}>Please leave feedback</h2>
+      {options.map(option => (
+        <button
+          className={s.btn}
+          key={option}
+          name={option}
+          onClick={onLeaveFeedback}
+        >
+          {option}
+        </button>
+      ))}
     </>
   );
 };
