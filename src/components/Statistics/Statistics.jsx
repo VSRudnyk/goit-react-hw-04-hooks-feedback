@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import s from './Statisitcs.module.css';
 
-const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
+const Statistics = ({ options, total, positivePercentage }) => {
   return (
     <>
       <h2 className={s.title}>Statistics</h2>
-      <p className={s.text}>Good: {good}</p>
-      <p className={s.text}>Neutral: {neutral}</p>
-      <p className={s.text}>Bad: {bad}</p>
+      {options.map(([key, value]) => (
+        <p key={key} className={s.text}>
+          {key}: {value}
+        </p>
+      ))}
       <p className={s.text}>Total: {total}</p>
       <p className={s.text}>Positive Feedback: {positivePercentage}%</p>
     </>
@@ -15,9 +17,6 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
 };
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   positivePercentage: PropTypes.string.isRequired,
 };
