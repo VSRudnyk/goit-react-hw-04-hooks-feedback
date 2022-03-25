@@ -17,6 +17,7 @@ const Statistics = ({ options, total, positivePercentage }) => {
 };
 
 Statistics.propTypes = {
+  options: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
   positivePercentage: PropTypes.string.isRequired,
 };
