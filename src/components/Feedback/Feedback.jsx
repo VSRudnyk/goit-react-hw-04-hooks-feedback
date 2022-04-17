@@ -1,19 +1,14 @@
 import PropTypes from 'prop-types';
-import s from './Feedback.module.css';
+import { Title, Button } from './Feedback.styled';
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <>
-      <h2 className={s.text}>Please leave feedback</h2>
+      <Title>Please leave feedback</Title>
       {options.map(option => (
-        <button
-          className={s.btn}
-          key={option}
-          name={option}
-          onClick={onLeaveFeedback}
-        >
+        <Button key={option} name={option} onClick={onLeaveFeedback}>
           {option}
-        </button>
+        </Button>
       ))}
     </>
   );

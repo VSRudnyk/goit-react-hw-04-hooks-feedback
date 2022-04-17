@@ -1,60 +1,66 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import Statistics from './Statistics';
 import FeedbackOptions from './Feedback';
 import Notification from './Notification';
 
-class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+const App = () => {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  leaveFeedback = e => {
+  const feedbackType = { good, neutral, bad };
+
+  const leaveFeedback = e => {
     const targetBtn = e.currentTarget.name;
 
-    this.setState({
-      [targetBtn]: this.state[targetBtn] + 1,
-    });
+    switch (targetBtn) {
+      case 'good':
+        setGood(s => s + 1);
+        break;
+      case 'neutral':
+        setNeutral(s => s + 1);
+        break;
+      case 'bad':
+        setBad(s => s + 1);
+        break;
+
+      default:
+        break;
+    }
   };
 
-  countTotalFeedback = () => {
-    const reviews = Object.values(this.state);
+  const countTotalFeedback = () => {
+    const reviews = Object.values(feedbackType);
     return reviews.reduce((total, review) => total + review, 0);
   };
 
-  countPositiveFeedbackPercentage = (good, totalFeedback) => {
+  const countPositiveFeedbackPercentage = (good, totalFeedback) => {
     const positiveFeedbackPercentage = (good / totalFeedback) * 100 || 0;
     return positiveFeedbackPercentage.toFixed();
   };
 
-  render() {
-    const totalFeedback = this.countTotalFeedback();
-    const options = Object.keys(this.state);
-    const optionsEntries = Object.entries(this.state);
-    const { good } = this.state;
+  const totalFeedback = countTotalFeedback();
+  const options = Object.keys(feedbackType);
+  const optionsEntries = Object.entries(feedbackType);
 
-    return (
-      <div className="container">
-        <FeedbackOptions
-          options={options}
-          onLeaveFeedback={this.leaveFeedback}
+  return (
+    <div className="container">
+      <FeedbackOptions options={options} onLeaveFeedback={leaveFeedback} />
+
+      {totalFeedback === 0 ? (
+        <Notification message="There is no feedback" />
+      ) : (
+        <Statistics
+          options={optionsEntries}
+          total={totalFeedback}
+          positivePercentage={countPositiveFeedbackPercentage(
+            good,
+            totalFeedback
+          )}
         />
-        {totalFeedback === 0 ? (
-          <Notification message="There is no feedback" />
-        ) : (
-          <Statistics
-            options={optionsEntries}
-            total={totalFeedback}
-            positivePercentage={this.countPositiveFeedbackPercentage(
-              good,
-              totalFeedback
-            )}
-          />
-        )}
-      </div>
-    );
-  }
-}
+      )}
+    </div>
+  );
+};
 
 export default App;
